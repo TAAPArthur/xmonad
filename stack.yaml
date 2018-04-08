@@ -5,3 +5,5 @@ packages:
 
 extra-deps:
   - X11-1.8
+  - X11-xft-0.3.1
+

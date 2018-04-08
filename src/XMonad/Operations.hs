@@ -103,6 +103,9 @@ kill = withFocused killWindow
 -- Managing windows
 
 -- | windows. Modify the current window list with a pure function, and refresh
+--windows :: (WindowSet -> WindowSet) -> X ()
+--windows f = sequence_ [focusWindowWithInputFocus, windows' f]
+
 windows :: (WindowSet -> WindowSet) -> X ()
 windows f = do
     XState { windowset = old } <- get
