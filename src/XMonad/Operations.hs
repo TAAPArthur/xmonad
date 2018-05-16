@@ -103,6 +103,9 @@ kill = withFocused killWindow
 -- Managing windows
 
 -- | windows. Modify the current window list with a pure function, and refresh
+--windows :: (WindowSet -> WindowSet) -> X ()
+--windows f = sequence_ [focusWindowWithInputFocus, windows' f]
+
 windows :: (WindowSet -> WindowSet) -> X ()
 windows f = do
     XState { windowset = old } <- get
@@ -113,9 +116,9 @@ windows f = do
 
     mapM_ setInitialProperties newwindows
 
-    whenJust (W.peek old) $ \otherw -> do
-      nbs <- asks (normalBorderColor . config)
-      setWindowBorderWithFallback d otherw nbs nbc
+    --whenJust (W.peek old) $ \otherw -> do
+    --  nbs <- asks (normalBorderColor . config)
+    --  setWindowBorderWithFallback d otherw nbs nbc
 
     modify (\s -> s { windowset = ws })
 
@@ -156,9 +159,9 @@ windows f = do
 
     mapM_ (uncurry tileWindow) rects
 
-    whenJust (W.peek ws) $ \w -> do
-      fbs <- asks (focusedBorderColor . config)
-      setWindowBorderWithFallback d w fbs fbc
+    --whenJust (W.peek ws) $ \w -> do
+    --  fbs <- asks (focusedBorderColor . config)
+    --  setWindowBorderWithFallback d w fbs fbc
 
     mapM_ reveal visible
     setTopFocus
